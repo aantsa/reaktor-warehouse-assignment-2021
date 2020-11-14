@@ -15,5 +15,13 @@ export class ConnectionService {
   getConfig(url: string) {
     return this.http.get(url);
   }
+
+  getFetch(url){
+    
+  }
+
+  // deleteJacket(url:string){
+  //   return this.http.delete(url);
+  // }
 } 
 
