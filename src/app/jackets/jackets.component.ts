@@ -19,7 +19,7 @@ export class JacketsComponent implements OnInit {
   newItem = false;
   jacketData: any;
   jacketFilter: any = {name: '', id: ''};
-  jacketUrl = 'https://bad-api-assignment.reaktor.com/products/jackets';
+  jacketUrl = 'http://localhost:3000/posts/';
   page: number = 1;
   pageSize: number = 10;
 

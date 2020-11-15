@@ -16,10 +16,10 @@ app.use('/posts', postsRoute);
 
 //ROUTES
 app.get('/', (req,res) => {
-    res.send('We are on home');
 });
 
-
+app.get('https://bad-api-assignment.reaktor.com/products/jackets', (req,res) => {
+});
 
 //Connect To DB
 mongoose.connect(process.env.DB_CONNECTION,{ useNewUrlParser: true, useUnifiedTopology: true }, () => console.log('Connected to DB!'));
