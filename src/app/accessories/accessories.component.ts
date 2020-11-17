@@ -15,7 +15,7 @@ export class AccessoriesComponent implements OnInit {
   accessoriesData: any;
   accessoriesFilter: any = {name: ''};
   collection = [];
-  accessoriesUrl = 'https://bad-api-assignment.reaktor.com/products/accessories';
+  accessoriesUrl = 'http://localhost:3000/api/products/accessories';
   page: number = 1;
   pageSize: number = 10;
 

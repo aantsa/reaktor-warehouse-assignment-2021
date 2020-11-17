@@ -2,7 +2,7 @@
   <form>
     <div class="form-group form-inline mt-3">
       <mat-icon>search</mat-icon> <input class="form-control ml-2" type="text" placeholder="Search by name"
-        [formControl]="filter" [(ngModel)]='jacketFilter.name || jacketFilter.id' />
+        [formControl]="filter" [(ngModel)]='jacketFilter.name' />
       <!-- <button class="btn btn-primary mx-2" (click)="addData()">Add data</button> -->
       <button class="btn btn-success ml-3" (click)="addItem()">Add Item</button>
       <div style='position: relative'>

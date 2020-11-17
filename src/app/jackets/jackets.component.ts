@@ -18,8 +18,9 @@ export class JacketsComponent implements OnInit {
   filter = new FormControl('');
   newItem = false;
   jacketData: any;
-  jacketFilter: any = {name: '', id: ''};
-  jacketUrl = 'http://localhost:3000/posts/';
+  jacketFilter: any = {name: ''};
+  jacketUrl = 'http://localhost:3000/api/products/jackets/';
+  finalUrl: String;
   page: number = 1;
   pageSize: number = 10;
 
@@ -38,6 +39,7 @@ export class JacketsComponent implements OnInit {
       this.jacketData = data;
     })
   }
+ 
 
   handlePageChange(event: number) {
     this.page = event;
@@ -45,7 +47,7 @@ export class JacketsComponent implements OnInit {
 
   setPageSize(pageSize: number) {
     this.pageSize = pageSize;
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }
 
   addItem() {

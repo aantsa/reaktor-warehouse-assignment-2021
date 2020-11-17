@@ -8,7 +8,8 @@ import { LoadingService } from './loading.service';
 })
 export class ConnectionService {
   jacketData: Object;
-  shirt: ':shirts'
+  shirt: ':shirts';
+  type: 'jackets';
 
   constructor(private http: HttpClient, private loadingService: LoadingService) { }
 

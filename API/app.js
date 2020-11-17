@@ -10,15 +10,19 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //Import Routes
-const postsRoute = require('./routes/posts');
+const jacketsRoute = require('./routes/jackets');
+const shirtsRoute = require('./routes/shirts');
+const accessoriesRoute = require('./routes/accessories');
+const availabilitiesRoute = require('./routes/availabilities');
 
-app.use('/posts', postsRoute);
+app.use('/api/products/jackets/', jacketsRoute);
+app.use('/api/products/shirts/', shirtsRoute);
+app.use('/api/products/accessories/', accessoriesRoute);
+app.use('/api/availabilities/', availabilitiesRoute);
+
 
 //ROUTES
 app.get('/', (req,res) => {
-});
-
-app.get('https://bad-api-assignment.reaktor.com/products/jackets', (req,res) => {
 });
 
 //Connect To DB

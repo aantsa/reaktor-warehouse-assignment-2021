@@ -14,7 +14,7 @@ export class ShirtsComponent implements OnInit {
   newItem = false;
   shirtsData: any;
   shirtFilter: any = {name: ''};
-  shirtUrl = 'https://bad-api-assignment.reaktor.com/products/shirts';
+  shirtUrl = 'http://localhost:3000/api/products/shirts';
   page: number = 1;
   pageSize: number = 10;
 
