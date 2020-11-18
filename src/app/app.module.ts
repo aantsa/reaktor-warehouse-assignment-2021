@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { AvailabilityComponent } from './availability/availability.component';
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     ShirtsComponent,
     HomeComponent,
     RegisterComponent,
+    AvailabilityComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

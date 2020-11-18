@@ -14,7 +14,6 @@
     <thead>
       <tr>
         <th *ngFor="let head of headers" scope="col">{{head}}</th>
-        <th>Edit</th>
       </tr>
     </thead>
     <tbody>
@@ -25,9 +24,6 @@
         <td>{{data.color}}</td>
         <td>{{data.price}}</td>
         <td>{{data.manufacturer}}</td>
-        <td><button class="btn btn-success">+</button>
-          <button class="btn btn-danger ml-1"> -- </button>
-        </td>
       </tr>
     </tbody>
   </table>

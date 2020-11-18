@@ -29,9 +29,10 @@ export class ShirtsComponent implements OnInit {
   }
 
   loadShirts() {
-    this.connectionService.getConfig(this.shirtUrl).subscribe(data => {
-      this.shirtsData = data;
-    })
+    this.connectionService.getConfig(this.shirtUrl)
+      .subscribe(
+      data => this.shirtsData = data,
+      error => alert('An error has occured please refresh the page.'));
   }
 
   handlePageChange(event: number) {

@@ -3,6 +3,7 @@ const router = express.Router();
 const Accessorie = require('../models/Accessories');
 const axios = require('axios');
 const mongoose = require('mongoose');
+const Accessories = require('../models/Accessories');
 const apiUrl = 'https://bad-api-assignment.reaktor.com';
 const middle = '/products/';
 
@@ -20,10 +21,9 @@ router.get('/', async (req, res) => {
 });
 
 
-
 const accessoriesData = async () => {
   let accessories = 'accessories';
-    console.dir(apiUrl + middle + accessories, ' Accessorie url')
+    console.dir(apiUrl + middle + accessories)
     await axios.get(apiUrl + middle + accessories)
       .then((response) => {
         onSuccess(response)
@@ -38,7 +38,7 @@ const onSuccess = async (response) => {
   var array = response.data;
   var arrayLength = Object.keys(array).length;
   console.dir(arrayLength, ' accessories count');
-  for (let i = 0; i < 6; i++) { //Remember to change '1' to arrayLength
+  for (let i = 0; i < arrayLength; i++) { //Remember to change '1' to arrayLength
     var id = array[i].id;
     var type = array[i].type;
     var name = array[i].name;
@@ -46,33 +46,22 @@ const onSuccess = async (response) => {
     var price = array[i].price;
     var manufacturer = array[i].manufacturer;
     console.log(id + " " + type + " " + name + " " + manufacturer);
-
+    // updateData(array[i]);
     assignDataValue(id, type, name, color, price, manufacturer)
   }
 }
 
 //Assinging values
 const assignDataValue = async (id, type, name, color, price, manufacturer) => {
-  //Check if already exists in DB
-  await Accessorie.findOne({
-    id
-  }, (err, accessorie) => {
-    if (!accessorie) {
-      var accessorie = new Accessorie()
-      accessorie.id = id;
-      accessorie.type = type;
-      accessorie.name = name;
-      accessorie.color = color;
-      accessorie.price = price;
-      accessorie.manufacturer = manufacturer;
-      //Saving to mongoDB
-      accessorie.save();
-      console.dir('Not in database');
-      console.dir(accessorie.id + ' ' + accessorie.type + ' ' + accessorie.name + ' ' + accessorie.color + ' ' + accessorie.price + ' ' + accessorie.manufacturer);
-    } else if (accessorie) {
-      console.dir('This accessorie is already in the database');
+  await Accessories.updateOne(
+    {id: id},
+    {type: type, name: name, color: color, price: price, manufacturer: manufacturer},
+    {upsert : true}
+  ), (error, result) => {
+    if(error) {
+      console.dir(error)
     }
-  })
+  }
 }
 
 //SPECIFIC product

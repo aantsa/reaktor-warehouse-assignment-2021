@@ -1,0 +1,60 @@
+<div *ngIf="!newItem" class="container">
+    <form>
+      <div class="form-group form-inline mt-3">
+        <mat-icon>search</mat-icon> <input class="form-control ml-2" type="text" placeholder="Search by name"
+          [formControl]="filter" [(ngModel)]='availabilityFilter.id' />
+        <!-- <button class="btn btn-primary mx-2" (click)="addData()">Add data</button> -->
+        <button class="btn btn-success ml-3" (click)="addItem()">Add Item</button>
+        <div style='position: relative'>
+          <ngx-spinner style="margin-left: 100px;" [fullScreen]='false' size="sm" bdOpacity="1"></ngx-spinner>
+        </div>
+      </div>
+    </form>
+    <table class="table table-striped">
+      <!-- <div style='position: relative'> -->
+      <!-- <ngx-spinner [fullScreen]='false' size="medium" bdOpacity="1"></ngx-spinner> -->
+      <!-- </div> -->
+      <thead>
+        <tr>
+          <th *ngFor="let head of headers" scope="col">{{head}}</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let data of availabilityData | filterBy: availabilityFilter | paginate: { itemsPerPage: pageSize, currentPage: page}">
+          <th scope="row">{{ data.id }}</th>
+          <td>{{data.DATAPAYLOAD}}</td>
+          <td><button class="btn btn-success">+</button>
+            <button class="btn btn-danger ml-1"> - </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div class="d-flex justify-content-center">
+      <pagination-controls (pageChange)="handlePageChange($event)"></pagination-controls>
+      <p class="mr-2">Items per page: </p><select (change)="setPageSize($event.target.value)"
+        class="custom-select custom-select-sm col-1">
+        <option>10</option>
+        <option>100</option>
+        <option>300</option>
+        <option>500+</option>
+      </select>
+    </div>
+  </div>
+  
+  <div *ngIf="newItem" class="container">
+    <form>
+      <h2>Add New Item</h2>
+      <div class="form-group form-inline mt-3">
+        <div class="row">
+          <div class="col-3"><input type="text" class="from-control ml-2" placeholder="Product Name" type="text"></div>
+          <div class="col-3"><input type="text" class="from-control ml-2" placeholder="Color" type="text"></div>
+          <div class="col-3"><input type="text" class="from-control ml-2" placeholder="Price" type="text"></div>
+          <div class="col-3"><input type="text" class="from-control ml-2" placeholder="Manifacturer" type="text"></div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

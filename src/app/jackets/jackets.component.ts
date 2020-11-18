@@ -23,6 +23,7 @@ export class JacketsComponent implements OnInit {
   finalUrl: String;
   page: number = 1;
   pageSize: number = 10;
+  showSpinner: boolean = true;
 
   headers = ['ID', 'Type', 'Name', 'Color', 'Price', 'Manufacturer'];
 
@@ -32,12 +33,15 @@ export class JacketsComponent implements OnInit {
   ngOnInit(): void {
     this.loadingService.start();
     this.loadJackets();
+    
   }
 
   loadJackets() {
-    this.connectionService.getConfig(this.jacketUrl).subscribe(data => {
-      this.jacketData = data;
-    })
+    this.connectionService.getConfig(this.jacketUrl)
+      .subscribe(
+      data => this.jacketData = data,
+      error => alert('An error has occured please refresh the page.'),
+      );
   }
  
 

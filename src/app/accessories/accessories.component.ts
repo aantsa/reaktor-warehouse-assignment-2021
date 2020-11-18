@@ -29,13 +29,13 @@ export class AccessoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadingService.start();
-    this.loadJackets();
+    this.loadAccessories();
   }
 
-  loadJackets() {
-    this.connectionService.getConfig(this.accessoriesUrl).subscribe(data => {
-      this.accessoriesData = data;
-    })
+  loadAccessories() {
+    this.connectionService.getConfig(this.accessoriesUrl)
+    .subscribe(data => this.accessoriesData = data,
+    error => alert('An error has occured please refresh the page.'));
   }
 
   handlePageChange(event) {

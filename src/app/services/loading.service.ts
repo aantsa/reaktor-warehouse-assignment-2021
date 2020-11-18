@@ -8,16 +8,15 @@ export class LoadingService {
 
   constructor(private spinnerSerive: NgxSpinnerService) { }
 
-  start(){
+  start() {
     this.spinnerSerive.show(undefined, {
       type: 'ball-clip-rotate',
       color: 'black',
       bdColor: '#ffffff',
-
-      
-    }); setTimeout(() => {
+    });
+    setTimeout(() => {
       this.spinnerSerive.hide();
-    }, 1000);
+    }, 5000);
   }
 
 }

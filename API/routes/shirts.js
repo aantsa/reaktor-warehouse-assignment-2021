@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Shirt = require('../models/Shirts');
+const Shirts = require('../models/Shirts');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const apiUrl = 'https://bad-api-assignment.reaktor.com';
@@ -9,7 +9,7 @@ const middle = '/products/';
 //GET BACK ALL THE SHIRTS
 router.get('/', async (req, res) => {
   try {
-    const shirts = await Shirt.find();
+    const shirts = await Shirts.find();
     res.json(shirts);
   } catch (error) {
     res.json({
@@ -37,7 +37,7 @@ const onSuccess = async (response) => {
   var array = response.data;
   var arrayLength = Object.keys(array).length;
   console.dir(arrayLength, ' shirts count');
-  for (let i = 0; i < 6; i++) { //Remember to change '1' to arrayLength
+  for (let i = 0; i < arrayLength; i++) { //Remember to change '1' to arrayLength
     var id = array[i].id;
     var type = array[i].type;
     var name = array[i].name;
@@ -52,26 +52,15 @@ const onSuccess = async (response) => {
 
 //Assinging values
 const assignDataValue = async (id, type, name, color, price, manufacturer) => {
-  //Check if already exists in DB
-  await Shirt.findOne({
-    id
-  }, (err, shirt) => {
-    if (!shirt) {
-      var shirt = new Shirt()
-      shirt.id = id;
-      shirt.type = type;
-      shirt.name = name;
-      shirt.color = color;
-      shirt.price = price;
-      shirt.manufacturer = manufacturer;
-      //Saving to mongoDB
-      shirt.save();
-      console.dir('Not in database');
-      console.dir(shirt.id + ' ' + shirt.type + ' ' + shirt.name + ' ' + shirt.color + ' ' + shirt.price + ' ' + shirt.manufacturer);
-    } else if (shirt) {
-      console.dir('This shirt is already in the database');
+  await Shirts.updateOne(
+    {id: id},
+    {type: type, name: name, color: color, price: price, manufacturer: manufacturer},
+    {upsert : true}
+  ), (error, result) => {
+    if(error) {
+      console.dir(error)
     }
-  })
+  }
 }
 
 //SPECIFIC product
