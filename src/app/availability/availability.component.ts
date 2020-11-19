@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { Observable } from 'rxjs';
+import { Availability } from '../models/Availability';
 import { ConnectionService } from '../services/connection.service';
-import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-availability',
@@ -11,29 +11,38 @@ import { LoadingService } from '../services/loading.service';
 })
 export class AvailabilityComponent implements OnInit {
   filter = new FormControl('');
-  newItem = false;
-  availabilityData: any;
+  availabilityData$: Observable<Availability>;
+  myData: any;
+  dataFound: boolean = true;
   availabilityFilter: any = {id: ''};
   availabilityUrl = 'http://localhost:3000/api/availabilities/';
   page: number = 1;
   pageSize: number = 10;
   timer: number;
-
   headers = ['ID', 'DATAPAYLOAD'];
 
-  constructor(private connectionService: ConnectionService, private loadingService: LoadingService, private spinnerSerive: NgxSpinnerService) {
-  }
-
+  
   ngOnInit(): void {
-    this.loadingService.start();
-    this.loadAvailabilities();
   }
 
-  loadAvailabilities() {
-    this.connectionService.getConfig(this.availabilityUrl)
-      .subscribe(
-      data => this.availabilityData = data,
-      error => alert('An error has occured please refresh the page.'));
+  constructor(private connectionService: ConnectionService) {
+    if(!this.connectionService.availabilityData){
+      this.connectionService.loadAvailabilityCache(this.availabilityUrl)
+      this.connectionService.availabilityData$.subscribe(
+        data => this.myData = data,
+        error => alert('An error has occured please refresh the page.'));
+    } else {
+      this.myData = this.connectionService.availabilityData;
+    }
+  }
+
+  findById(id: string){
+    this.connectionService.findById(this.availabilityUrl, id).subscribe(
+      data => {
+        this.myData = data; 
+        this.dataFound = true},
+      error => this.dataFound = false
+    );
   }
 
   handlePageChange(event: number) {
@@ -43,9 +52,5 @@ export class AvailabilityComponent implements OnInit {
   setPageSize(pageSize: number) {
     this.pageSize = pageSize;
     window.scrollTo(0, 0);
-  }
-
-  addItem() {
-    this.newItem = true;
   }
 }

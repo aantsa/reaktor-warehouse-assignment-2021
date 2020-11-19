@@ -1,8 +1,8 @@
-<div *ngIf="!newItem" class="container">
+<div class="container">
   <form>
     <div class="form-group form-inline mt-3">
       <mat-icon>search</mat-icon> <input class="form-control ml-2" type="text" placeholder="Search by name" [formControl]="filter" [(ngModel)]='shirtFilter.name'/>
-      <button class="btn btn-success ml-3" (click)="addItem()">Add Item</button>
+      <button class="btn btn-success ml-3">Add Item</button>
       <div style='position: relative'>
         <ngx-spinner style="margin-left: 100px;" [fullScreen]='false' size="sm" bdOpacity="1"></ngx-spinner>
       </div>
@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of shirtsData | filterBy: shirtFilter | paginate: { itemsPerPage: pageSize, currentPage: page}">
+      <tr *ngFor="let data of myData | filterBy: shirtFilter | paginate: { itemsPerPage: pageSize, currentPage: page}">
         <th scope="row">{{ data.id }}</th>
         <td>{{data.type}}</td>
         <td>{{data.name}}</td>
@@ -37,17 +37,3 @@
     </select>
   </div>
 </div>
-
-<!-- <div *ngIf="newItem" class="container">
-    <form>
-      <h2>Add New Item</h2>
-      <div class="form-group form-inline mt-3">
-        <div class="row">
-          <div class="col-3"><input type="text" class="from-control ml-2" placeholder="Product Name" type="text"></div>
-          <div class="col-3"><input type="text" class="from-control ml-2" placeholder="Size" type="text"></div>
-          <div class="col-3"><input type="text" class="from-control ml-2" placeholder="Material" type="text"></div>
-          <div class="col-3"><input type="text" class="from-control ml-2" placeholder="Product price" type="text"></div>
-        </div>
-      </div>
-    </form>
-  </div> -->

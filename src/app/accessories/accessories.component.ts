@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { Observable } from 'rxjs';
+import { Product } from '../models/Products';
 import { ConnectionService } from '../services/connection.service';
-import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-accessories',
@@ -11,8 +11,8 @@ import { LoadingService } from '../services/loading.service';
 })
 export class AccessoriesComponent implements OnInit {
   filter = new FormControl('');
-  newItem = false;
-  accessoriesData: any;
+  accessoriesData$: Observable<Product>;
+  myData: any;
   accessoriesFilter: any = {name: ''};
   collection = [];
   accessoriesUrl = 'http://localhost:3000/api/products/accessories';
@@ -21,33 +21,28 @@ export class AccessoriesComponent implements OnInit {
 
   headers = ['ID', 'Type', 'Name', 'Color', 'Price', 'Manufacturer'];
   
-  constructor(private connectionService: ConnectionService, private loadingService: LoadingService, private spinnerSerive: NgxSpinnerService) { 
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`item ${i}`);
+  ngOnInit(): void {
+  }
+
+  constructor(private connectionService: ConnectionService) { 
+    if(!this.connectionService.accessoriesData){
+      this.connectionService.loadAccessoriesCache(this.accessoriesUrl)
+      this.connectionService.accessoriesData$.subscribe(
+        data => this.myData = data,
+      error => alert('An error has occured please refresh the page.'));
+    } else {
+      this.myData = this.connectionService.accessoriesData;
     }
   }
 
-  ngOnInit(): void {
-    this.loadingService.start();
-    this.loadAccessories();
-  }
-
-  loadAccessories() {
-    this.connectionService.getConfig(this.accessoriesUrl)
-    .subscribe(data => this.accessoriesData = data,
-    error => alert('An error has occured please refresh the page.'));
-  }
 
   handlePageChange(event) {
     this.page = event;
   }
+  
   setPageSize(pageSize: number){
     this.pageSize = pageSize;
     window.scrollTo(0,0);
-  }
-
-  addItem() {
-    this.newItem = true;
   }
 
 }

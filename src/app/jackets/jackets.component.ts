@@ -1,13 +1,8 @@
-import { Component, OnInit, PipeTransform } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
 import { ConnectionService } from '../services/connection.service';
-import { LoadingService } from '../services/loading.service';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { Product } from '../models/Products';
 
 @Component({
   selector: 'app-jackets',
@@ -16,34 +11,33 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class JacketsComponent implements OnInit {
   filter = new FormControl('');
-  newItem = false;
-  jacketData: any;
+  jacketData$: Observable<Product>;
+  myData: any;
   jacketFilter: any = {name: ''};
   jacketUrl = 'http://localhost:3000/api/products/jackets/';
-  finalUrl: String;
   page: number = 1;
   pageSize: number = 10;
-  showSpinner: boolean = true;
+  
 
   headers = ['ID', 'Type', 'Name', 'Color', 'Price', 'Manufacturer'];
 
-  constructor(private connectionService: ConnectionService, private loadingService: LoadingService, private spinnerSerive: NgxSpinnerService) {
+  constructor(private connectionService: ConnectionService) {
+    if(!this.connectionService.jacketsData){
+      this.connectionService.loadJacketsCache(this.jacketUrl)
+      this.connectionService.jacketsData$.subscribe(
+        data => this.myData = data,
+      error => alert('An error has occured please refresh the page.'));
+    } else {
+      this.myData = this.connectionService.jacketsData;
+    }
   }
 
   ngOnInit(): void {
-    this.loadingService.start();
-    this.loadJackets();
-    
   }
 
-  loadJackets() {
-    this.connectionService.getConfig(this.jacketUrl)
-      .subscribe(
-      data => this.jacketData = data,
-      error => alert('An error has occured please refresh the page.'),
-      );
+  findByName(name: string){
+    this.myData = this.connectionService.findById(this.jacketUrl, name);
   }
- 
 
   handlePageChange(event: number) {
     this.page = event;
@@ -52,9 +46,5 @@ export class JacketsComponent implements OnInit {
   setPageSize(pageSize: number) {
     this.pageSize = pageSize;
     window.scrollTo(0, 0);
-  }
-
-  addItem() {
-    this.newItem = true;
   }
 }

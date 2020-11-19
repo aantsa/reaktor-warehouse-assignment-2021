@@ -9,6 +9,7 @@ require('dotenv/config');
 app.use(cors());
 app.use(bodyParser.json());
 
+
 //Import Routes
 const jacketsRoute = require('./routes/jackets');
 const shirtsRoute = require('./routes/shirts');
@@ -23,6 +24,7 @@ app.use('/api/availabilities/', availabilitiesRoute);
 
 //ROUTES
 app.get('/', (req,res) => {
+    res.send('We are on home!');
 });
 
 //Connect To DB

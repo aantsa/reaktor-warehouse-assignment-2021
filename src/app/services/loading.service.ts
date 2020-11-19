@@ -14,9 +14,10 @@ export class LoadingService {
       color: 'black',
       bdColor: '#ffffff',
     });
-    setTimeout(() => {
-      this.spinnerSerive.hide();
-    }, 5000);
+  }
+
+  stop() {
+    this.spinnerSerive.hide();
   }
 
 }

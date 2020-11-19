@@ -1,19 +1,16 @@
-<div *ngIf="!newItem" class="container">
+<div class="container">
     <form>
       <div class="form-group form-inline mt-3">
-        <mat-icon>search</mat-icon> <input class="form-control ml-2" type="text" placeholder="Search by name"
+        <mat-icon>search</mat-icon> <input (change)='findById(availabilityFilter.id)'  class="form-control ml-2" type="text" placeholder="Search by id"
           [formControl]="filter" [(ngModel)]='availabilityFilter.id' />
-        <!-- <button class="btn btn-primary mx-2" (click)="addData()">Add data</button> -->
-        <button class="btn btn-success ml-3" (click)="addItem()">Add Item</button>
+        <button class="btn btn-success ml-3">Add Item</button>
+        <h3 class="ml-2 mt-3" [hidden]="dataFound || availabilityFilter.id ===''">Given ID cannot be found</h3>
         <div style='position: relative'>
           <ngx-spinner style="margin-left: 100px;" [fullScreen]='false' size="sm" bdOpacity="1"></ngx-spinner>
         </div>
       </div>
     </form>
     <table class="table table-striped">
-      <!-- <div style='position: relative'> -->
-      <!-- <ngx-spinner [fullScreen]='false' size="medium" bdOpacity="1"></ngx-spinner> -->
-      <!-- </div> -->
       <thead>
         <tr>
           <th *ngFor="let head of headers" scope="col">{{head}}</th>
@@ -22,7 +19,7 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let data of availabilityData | filterBy: availabilityFilter | paginate: { itemsPerPage: pageSize, currentPage: page}">
+          *ngFor="let data of myData | filterBy: availabilityFilter | paginate: { itemsPerPage: pageSize, currentPage: page}">
           <th scope="row">{{ data.id }}</th>
           <td>{{data.DATAPAYLOAD}}</td>
           <td><button class="btn btn-success">+</button>
@@ -42,19 +39,5 @@
         <option>500+</option>
       </select>
     </div>
-  </div>
-  
-  <div *ngIf="newItem" class="container">
-    <form>
-      <h2>Add New Item</h2>
-      <div class="form-group form-inline mt-3">
-        <div class="row">
-          <div class="col-3"><input type="text" class="from-control ml-2" placeholder="Product Name" type="text"></div>
-          <div class="col-3"><input type="text" class="from-control ml-2" placeholder="Color" type="text"></div>
-          <div class="col-3"><input type="text" class="from-control ml-2" placeholder="Price" type="text"></div>
-          <div class="col-3"><input type="text" class="from-control ml-2" placeholder="Manifacturer" type="text"></div>
-        </div>
-      </div>
-    </form>
   </div>
   
