@@ -9,7 +9,8 @@
       </div>
     </div>
   </form>
-  <table class="table table-striped">
+  <div class="table-div">
+  <table class="table table-striped" >
     <thead>
       <tr>
         <th *ngFor="let head of headers" scope="col">{{head}}</th>
@@ -26,6 +27,7 @@
       </tr>
     </tbody>
   </table>
+  </div>
 
   <div class="d-flex justify-content-center">
     <pagination-controls (pageChange)="handlePageChange($event)"></pagination-controls>
