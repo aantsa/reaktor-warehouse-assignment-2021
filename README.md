@@ -17,6 +17,7 @@ Taking advantage of caching data; the app works smoothly after loading data for 
 - [x] Updating the data and inserting new data if it doesnt already exist in the database.
 - [x] Loading indicator to notify the end user that the app is loading data.
 - [x] Responsive and scalable user interface
+- [x] Backend data fetch every night (inprogress)
 - [ ] Adding filtering for every property
 
 ## To run this app:
