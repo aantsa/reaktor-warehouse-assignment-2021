@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ConnectionService } from '../services/connection.service';
 import { Product } from '../models/Products';
 import { LoadingService } from '../services/loading.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-jackets',
@@ -15,7 +16,7 @@ export class JacketsComponent implements OnInit, OnDestroy {
   jacketData$: Observable<Product>;
   myData: any;
   jacketFilter: any = {name: ''};
-  jacketUrl = 'http://localhost:3000/api/products/jackets/';
+  jacketUrl =  `${environment.apiUrl}/api/products/jackets/`;
   page: number = 1;
   pageSize: number = 10;
   

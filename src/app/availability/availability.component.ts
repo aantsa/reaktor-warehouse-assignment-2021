@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Availability } from '../models/Availability';
 import { ConnectionService } from '../services/connection.service';
 import { LoadingService } from '../services/loading.service';
@@ -16,7 +17,7 @@ export class AvailabilityComponent implements OnInit, OnDestroy {
   myData: any;
   dataFound: boolean = true;
   availabilityFilter: any = {id: ''};
-  availabilityUrl = 'http://localhost:3000/api/availabilities/';
+  availabilityUrl = `${environment.apiUrl}/api/availabilities/`;
   page: number = 1;
   pageSize: number = 10;
   timer: number;

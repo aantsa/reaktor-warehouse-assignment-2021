@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Product } from '../models/Products';
 import { ConnectionService } from '../services/connection.service';
 import { LoadingService } from '../services/loading.service';
@@ -15,7 +16,7 @@ export class ShirtsComponent implements OnInit, OnDestroy {
   shirtsData$: Observable<Product>;
   myData: any = '';
   shirtFilter: any = { name: '' };
-  shirtsUrl = 'http://localhost:3000/api/products/shirts';
+  shirtsUrl = `${environment.apiUrl}/api/products/shirts`;
   page: number = 1;
   pageSize: number = 10;
   loading: boolean = true;
