@@ -1,6 +1,6 @@
 # Pre-assignment for Reaktor Junior 2021
 ![reaktor](https://user-images.githubusercontent.com/49878974/99691154-94ccb400-2a91-11eb-9344-93f8cac0634d.png)
-This is my repository for ([Reaktor Junior 2021's pre assignment](https://www.reaktor.com/junior-dev-assignment/)).
+This is my repository for [Reaktor Junior 2021's pre assignment](https://www.reaktor.com/junior-dev-assignment/).
 
 I created a working app for warehouse workers to fetch live data from two different legacy APIs.
 This web app is created using mean-stack. MongoDB as a database, backend using node.js and express and the client side is created with angular and bootstrap.
