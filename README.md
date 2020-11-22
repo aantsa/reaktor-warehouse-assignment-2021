@@ -25,6 +25,9 @@ Taking advantage of caching data; the app works smoothly after loading data for 
 
 Create .ENV file to the API folder and create property DB_CONNECTION which includes your mongodb database link.
 
+First time running the app locally will take few minutes to load data to your database. 
+If you don't want to fetch data everytime you open the app, comment out the function calls from the files inside api/routes folder for example "availabilityData();".
+
 Run `npm install` to install frontend dependencies.
 
 Run `npm install` in the API folder to install the backend.
