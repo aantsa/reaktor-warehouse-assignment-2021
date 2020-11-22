@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Availability } from '../models/Availability';
 import { ConnectionService } from '../services/connection.service';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-availability',
   templateUrl: './availability.component.html',
   styleUrls: ['./availability.component.css']
 })
-export class AvailabilityComponent implements OnInit {
+export class AvailabilityComponent implements OnInit, OnDestroy {
   filter = new FormControl('');
   availabilityData$: Observable<Availability>;
   myData: any;
@@ -25,7 +26,11 @@ export class AvailabilityComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private connectionService: ConnectionService) {
+  ngOnDestroy(): void {
+    this.loadingService.stop();
+  }
+
+  constructor(private connectionService: ConnectionService, private loadingService: LoadingService) {
     if(!this.connectionService.availabilityData){
       this.connectionService.loadAvailabilityCache(this.availabilityUrl)
       this.connectionService.availabilityData$.subscribe(

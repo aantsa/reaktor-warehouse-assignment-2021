@@ -7,7 +7,7 @@ const apiUrl = 'https://bad-api-assignment.reaktor.com';
 const middle = '/availability/';
 
 
-
+//GET BACK ALL THE AVAILABILITIES
 router.get('/', async (req, res) => {
   try {
     const availability = await Availabilities.find();
@@ -17,18 +17,20 @@ router.get('/', async (req, res) => {
   }
 });
 
+//FETCH DATA FROM THE API
 const availabilityData = async () => {
   let params = [ 'xoon', 'reps', 'nouke', 'derp', 'abiplos' ]
     for (let i = 0; i < params.length; i++) {
     await axios.get(apiUrl + middle + params[i])
-      .then((response) => onSucc(response))
+      .then((response) => onSuccess(response))
       .catch((error) => {
         throw new Error('Unable to get availability data from the API');
       })
     }
 }
 
-const onSucc = async (response) => {
+//ON SUCCESS, STORE DATA TO TEMP VARIABLES
+const onSuccess = async (response) => {
   var reg = 'E>(.*)<\/I'
   var array = response.data.response;
   var arrayLength = Object.keys(array).length;
@@ -41,6 +43,7 @@ const onSucc = async (response) => {
   }
 }
 
+//ASSINING VALUES
 const assignAvailabilityValue = async (id, DATAPAYLOAD) => {
   await Availabilities.updateOne(
     {id: id},
@@ -53,5 +56,11 @@ const assignAvailabilityValue = async (id, DATAPAYLOAD) => {
   }
 }
 
-// availabilityData();
+availabilityData();
+// setInterval(availabilityData, 300000)
+
+/**
+ * This interval is to be manually set by the customer.
+ * It determines when will the data should be fetched from the api.
+ */
 module.exports = router;

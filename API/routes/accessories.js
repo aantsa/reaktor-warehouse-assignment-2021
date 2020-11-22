@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-
+//FETCH DATA FROM THE API
 const accessoriesData = async () => {
   let accessories = 'accessories';
     await axios.get(apiUrl + middle + accessories)
@@ -29,11 +29,11 @@ const accessoriesData = async () => {
       })
 }
 
-//Fetch data from API
+//ON SUCCESS, STORE DATA TO TEMP VARIABLES
 const onSuccess = async (response) => {
   var array = response.data;
   var arrayLength = Object.keys(array).length;
-  for (let i = 0; i < arrayLength; i++) { //Remember to change '1' to arrayLength
+  for (let i = 0; i < arrayLength; i++) {
     var id = array[i].id;
     var type = array[i].type;
     var name = array[i].name;
@@ -44,7 +44,7 @@ const onSuccess = async (response) => {
   }
 }
 
-//Assinging values
+//ASSINING VALUES
 const assignDataValue = async (id, type, name, color, price, manufacturer) => {
   await Accessories.updateOne(
     {id: id},
@@ -81,5 +81,11 @@ router.get('/:productName', async (req, res) => {
   }
 });
 
-// accessoriesData();
+accessoriesData();
+// setInterval(accessoriesData, 300000)
+
+/**
+ * This interval is to be manually set by the customer.
+ * It determines when will the data should be fetched from the api.
+ */
 module.exports = router;

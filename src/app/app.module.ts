@@ -8,7 +8,6 @@ import { JacketsComponent } from './jackets/jackets.component';
 import { AccessoriesComponent } from './accessories/accessories.component';
 import { ShirtsComponent } from './shirts/shirts.component';
 import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
@@ -29,7 +28,6 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
     AccessoriesComponent,
     ShirtsComponent,
     HomeComponent,
-    RegisterComponent,
     AvailabilityComponent,
     PageNotFoundComponent,
   ],
@@ -45,8 +43,8 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
     BrowserAnimationsModule,
     NgxPaginationModule,
     MatIconModule,
-    FilterPipeModule
-    
+    FilterPipeModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ],
   providers: [],
   bootstrap: [AppComponent]

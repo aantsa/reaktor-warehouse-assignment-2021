@@ -44,9 +44,11 @@ export class ConnectionService {
       data => {
       this.jacketsData = data,
       this.loadingService.stop()
+      setInterval(() => { this.loadJacketsCache(url)}, 300000)
       },
       error => alert('An error has occured please refresh the page.'));
       return this.jacketsData;
+    
   }
 
   loadShirtsCache(url: string) {
@@ -59,8 +61,10 @@ export class ConnectionService {
       data => {
       this.shirtsData = data,
       this.loadingService.stop()
+      setInterval(() => { this.loadShirtsCache(url)}, 300000)
       },
       error => alert('An error has occured please refresh the page.'));
+      
   }
   
   loadAccessoriesCache(url: string) {
@@ -73,6 +77,7 @@ export class ConnectionService {
       data => {
       this.accessoriesData = data,
       this.loadingService.stop()
+      setInterval(() => { this.loadAccessoriesCache(url)}, 300000)
       },
       error => alert('An error has occured please refresh the page.'));
   }
@@ -87,6 +92,7 @@ export class ConnectionService {
       data => {
       this.availabilityData = data,
       this.loadingService.stop()
+      setInterval(() => { this.loadAvailabilityCache(url)}, 300000)
       },
       error => alert('An error has occured please refresh the page.'));
   }

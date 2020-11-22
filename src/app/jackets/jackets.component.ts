@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ConnectionService } from '../services/connection.service';
 import { Product } from '../models/Products';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-jackets',
   templateUrl: './jackets.component.html',
   styleUrls: ['./jackets.component.css']
 })
-export class JacketsComponent implements OnInit {
+export class JacketsComponent implements OnInit, OnDestroy {
   filter = new FormControl('');
   jacketData$: Observable<Product>;
   myData: any;
@@ -21,7 +22,7 @@ export class JacketsComponent implements OnInit {
 
   headers = ['ID', 'Type', 'Name', 'Color', 'Price', 'Manufacturer'];
 
-  constructor(private connectionService: ConnectionService) {
+  constructor(private connectionService: ConnectionService, private loadingService: LoadingService) {
     if(!this.connectionService.jacketsData){
       this.connectionService.loadJacketsCache(this.jacketUrl)
       this.connectionService.jacketsData$.subscribe(
@@ -33,6 +34,10 @@ export class JacketsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.loadingService.stop();
   }
 
   findByName(name: string){

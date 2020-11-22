@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Product } from '../models/Products';
 import { ConnectionService } from '../services/connection.service';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-shirts',
   templateUrl: './shirts.component.html',
   styleUrls: ['./shirts.component.css']
 })
-export class ShirtsComponent implements OnInit {
+export class ShirtsComponent implements OnInit, OnDestroy {
   filter = new FormControl('');
   shirtsData$: Observable<Product>;
   myData: any = '';
@@ -21,7 +22,7 @@ export class ShirtsComponent implements OnInit {
 
   headers = ['ID', 'Type', 'Name', 'Color', 'Price', 'Manufacturer'];
 
-  constructor(private connectionService: ConnectionService) {
+  constructor(private connectionService: ConnectionService, private loadingService: LoadingService) {
     if(!this.connectionService.shirtsData){
       this.connectionService.loadShirtsCache(this.shirtsUrl)
       this.connectionService.shirtsData$.subscribe(
@@ -30,6 +31,14 @@ export class ShirtsComponent implements OnInit {
     } else {
       this.myData = this.connectionService.shirtsData;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.loadingService.stop();
+  }
+
+  findByName(name: string){
+    this.myData = this.connectionService.findById(this.shirtsUrl, name);
   }
 
   ngOnInit(): void {

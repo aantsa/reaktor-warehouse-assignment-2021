@@ -1,9 +1,11 @@
 <div class="container">
   <form>
     <div class="form-group form-inline mt-3">
-      <mat-icon>search</mat-icon> <input (change)='findByName(jacketFilter.name)' class="form-control ml-2" type="text" placeholder="Search by name"
+      <mat-icon>search</mat-icon>
+      <div class="input_field">
+      <input (change)='findByName(jacketFilter.name)' class="form-control ml-2" type="text" placeholder="Search by name"
         [formControl]="filter" [(ngModel)]='jacketFilter.name' />
-      <button class="btn btn-success ml-3">Add Item</button>
+        </div>
       <div style='position: relative'>
         <ngx-spinner style="margin-left: 100px;" [fullScreen]='false' size="sm" bdOpacity="1"></ngx-spinner>
       </div>
