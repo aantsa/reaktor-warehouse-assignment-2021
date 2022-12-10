@@ -5,7 +5,8 @@ This is my repository for [Reaktor Junior 2021's pre assignment](https://www.rea
 [Backend repo](https://github.com/aantsa/reaktor-warehouse-assignment-backend).
 
 The app is live on [Heroku](https://reaktor-warehouse-assignment.herokuapp.com/)
-[10.12.2022] not live anymore, since Heroku is not free anymore.
+
+edit: [10.12.2022] not live anymore, since Heroku is not free anymore.
 
 I created a working app for warehouse workers to fetch live data from two different legacy APIs.
 This web app is created using mean-stack. MongoDB as a database, backend using node.js and express and the client side is created with angular and bootstrap.
